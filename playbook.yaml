@@ -1,4 +1,4 @@
-- hosts: all  
+- hosts: vault 
   user: ec2-user
   become: yes
   tasks: 
