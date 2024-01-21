@@ -1,0 +1,44 @@
+- hosts: all  
+  user: ec2-user
+  become: yes
+  tasks: 
+    - name: script permission
+      command: chmod u+x ./script.sh 
+
+    - name: running script 
+      command: ./script.sh
+
+    - name: installing vault
+      command: sudo yum -y install vault
+
+    - name: copy vault config 
+      copy:
+          src: ./vault.hcl 
+          dest: /opt/vault/vault.hcl
+          owner: vault
+          group: vault 
+          mode: u=rw,g=r,o=r
+
+    - name: service config 
+      copy:
+          src: ./vault.service
+          dest: /usr/lib/systemd/system/vault.service
+          owner: root
+          group: root
+          mode: u=rw,g=r,o=r
+
+    - name: reloading services 
+      command: sudo systemctl daemon-reload
+
+    - name: create folder for storage 
+      file: 
+           path: /opt/vault.d/
+           owner: vault
+           group: vault 
+           mode: u=rwx,g=rx,o=r
+           state: directory
+
+    - name: start vault 
+      command: sudo systemctl start vault
+    
+  
