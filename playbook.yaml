@@ -2,11 +2,16 @@
   user: ec2-user
   become: yes
   tasks: 
-    - name: script permission
-      command: chmod u+x ./script.sh 
-
+    - name: scirpt 
+      copy: 
+          src: script.sh
+          dest: /opt/script.sh
+          owner: root
+          group: root
+          mode: u=rwx,g=rx,o=r
+          
     - name: running script 
-      command: ./script.sh
+      script: /opt/script.sh
 
     - name: installing vault
       command: sudo yum -y install vault
