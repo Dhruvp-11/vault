@@ -18,7 +18,7 @@
 
     - name: copy vault config 
       copy:
-          src: ./vault.hcl 
+          src: /vault.hcl 
           dest: /opt/vault/vault.hcl
           owner: vault
           group: vault 
@@ -26,7 +26,7 @@
 
     - name: service config 
       copy:
-          src: ./vault.service
+          src: /vault.service
           dest: /usr/lib/systemd/system/vault.service
           owner: root
           group: root
