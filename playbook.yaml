@@ -11,7 +11,7 @@
           mode: u=rwx,g=rx,o=r
           
     - name: running script 
-      script: /opt/script.sh
+      command: /opt/script.sh
 
     - name: installing vault
       command: sudo yum -y install vault
