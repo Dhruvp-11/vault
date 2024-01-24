@@ -43,7 +43,7 @@
            mode: u=rwx,g=rx,o=r
            state: directory
 
-    - name: start vault 
-      command: sudo systemctl start vault
+    - name: enable and start vault service
+      command: sudo systemctl enable --now vault
     
   
