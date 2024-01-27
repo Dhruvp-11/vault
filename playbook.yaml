@@ -8,13 +8,13 @@
           dest: /opt/script.sh
           owner: root
           group: root
-          mode: u=rwx,g=rx,o=r
-          
+          mode: u=rwx,g=rx,o=r # storing script with 754 permission
+           
     - name: running script 
-      command: bash /opt/script.sh
+      command: bash /opt/script.sh  # script to add repo for vault installation
 
     - name: installing vault
-      command: sudo yum -y install vault
+      command: sudo yum -y install vault #installing vault 
 
     - name: copy vault config 
       copy:
@@ -22,7 +22,7 @@
           dest: /opt/vault/vault.hcl
           owner: vault
           group: vault 
-          mode: u=rw,g=r,o=r
+          mode: u=rw,g=r,o=r #adding config file for vault with 644 permission
 
     - name: service config 
       copy:
@@ -30,10 +30,10 @@
           dest: /usr/lib/systemd/system/vault.service
           owner: root
           group: root
-          mode: u=rw,g=r,o=r
-
+          mode: u=rw,g=r,o=r  #adding vault service with 644 permission
+ 
     - name: reloading services 
-      command: sudo systemctl daemon-reload
+      command: sudo systemctl daemon-reload   #reloading service daemon
 
     - name: create folder for storage 
       file: 
@@ -41,9 +41,9 @@
            owner: vault
            group: vault 
            mode: u=rwx,g=rx,o=r
-           state: directory
+           state: directory   #created folder to store data of vault
 
     - name: enable and start vault service
-      command: sudo systemctl enable --now vault
+      command: sudo systemctl enable --now vault   # enabling and starting vault service
     
   
